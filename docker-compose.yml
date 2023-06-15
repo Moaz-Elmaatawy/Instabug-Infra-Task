@@ -13,7 +13,9 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
-
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      
   app:
     build:
       context: .
@@ -28,7 +30,6 @@ services:
       MYSQL_USER: example_user
       MYSQL_PASS: example_pass
       MYSQL_PORT: '3306'
-    volumes:
-      - mysql-volume:/var/lib/mysql
+    
 volumes:
   mysql-volume:
