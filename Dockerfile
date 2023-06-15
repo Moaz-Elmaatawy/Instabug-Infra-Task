@@ -5,13 +5,13 @@ FROM golang:1.17-alpine AS builder
 WORKDIR /app
 
 # Copy go.mod and go.sum files to the container
-COPY go.mod go.sum ./
+COPY go-app/go.mod go-app/go.sum ./
 
 # Download Go module dependencies
 RUN go mod download
 
 # Copy the rest of the source code
-COPY . .
+COPY go-app/ .
 
 # Build the Go application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
