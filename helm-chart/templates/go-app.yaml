@@ -1,0 +1,45 @@
+# go-app.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-app-service
+spec:
+  type: LoadBalancer  
+  selector:
+    app: go-app
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-app
+  template:
+    metadata:
+      labels:
+        app: go-app
+    spec:
+      containers:
+        - name: go-app
+          image: {{ .Values.goApp.image }}
+          ports:
+            - containerPort: 9090
+          env:
+            - name: MYSQL_HOST
+              value: "{{ .Values.goApp.mysqlHost }}"
+            - name: MYSQL_USER
+              value: "{{ .Values.goApp.mysqlUser }}"
+            - name: MYSQL_PASS
+              value: "{{ .Values.goApp.mysqlPass }}"
+            - name: MYSQL_PORT
+              value: "{{ .Values.goApp.mysqlPort }}"

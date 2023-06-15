@@ -1,0 +1,14 @@
+# values.yaml
+
+goApp:
+  image: "moazelmaatawy/go-app:latest"
+  mysqlHost: "mysql-service"
+  mysqlUser: "example_user"
+  mysqlPass: "example_pass"
+  mysqlPort: "3306"
+
+mysql:
+  rootPassword: "example"
+  database: "internship"
+  user: "example_user"
+  password: "example_pass"
